@@ -13,9 +13,6 @@
  */
 namespace SevenPress\Metrics\Cli;
 
-use SevenPress\Metrics\Tool\Loc\Total as TotalLoc;
-use SevenPress\Metrics\Storage\Sql\Loc as LocStorage;
-
 require_once __DIR__ . '/../bootstrap.php';
 
 /**
@@ -24,10 +21,12 @@ require_once __DIR__ . '/../bootstrap.php';
 if (!isset($argv[1])) exit("No commit supplied\n");
 
 /**
- * Setup LOC calculator and storage
+ * Load LOC runner
  */
-$loc = new TotalLoc($targetDirectory);
-$storage = new LocStorage($dbConnection);
+require_once __DIR__ . '/run-loc.php';
 
-// run
-$storage->store($argv[1], $loc->run());
+/**
+ * Load CPD runner
+ */
+require_once __DIR__ . '/run-cpd.php';
+
