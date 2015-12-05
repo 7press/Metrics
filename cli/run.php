@@ -14,9 +14,20 @@
 namespace SevenPress\Metrics\Cli;
 
 use SevenPress\Metrics\Tool\Loc\Total as TotalLoc;
+use SevenPress\Metrics\Storage\Sql\Loc as LocStorage;
 
 require_once __DIR__ . '/../bootstrap.php';
 
-$loc = new TotalLoc($targetDirectory);
+/**
+ * bail if we are missing parameters
+ */
+if (!isset($argv[1])) exit("No commit supplied\n");
 
-var_dump($loc->run());
+/**
+ * Setup LOC calculator and storage
+ */
+$loc = new TotalLoc($targetDirectory);
+$storage = new LocStorage($dbConnection);
+
+// run
+$storage->store($argv[1], $loc->run());
