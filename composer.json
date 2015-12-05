@@ -1,0 +1,24 @@
+{
+    "name": "7press/metrics",
+    "description": "Metrics suite for the 7press project",
+    "version": "0.1.0",
+    "type": "project",
+    "keywords": ["wordpress", "fork", "7press", "metrics", "O(scary)"],
+    "homepage": "https://github.com/7press/Metrics",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Pieter Hordijk",
+            "email": "info@pieterhordijk.com",
+            "homepage": "https://pieterhordijk.com",
+            "role": "Lead fork maintainer"
+        }
+    ],
+    "autoload": {
+        "psr-4": {"SevenPress\\Metrics\\": "src/"}
+    },
+    "require": {
+        "php": "7.*",
+        "phploc/phploc": "2.1.*"
+    }
+}
