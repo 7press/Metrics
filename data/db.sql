@@ -4,7 +4,7 @@
 
 -- Dumped from database version 9.4.5
 -- Dumped by pg_dump version 9.4.5
--- Started on 2015-12-05 16:28:56
+-- Started on 2015-12-05 18:34:57
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -14,7 +14,7 @@ SET check_function_bodies = false;
 SET client_min_messages = warning;
 
 --
--- TOC entry 173 (class 3079 OID 11855)
+-- TOC entry 175 (class 3079 OID 11855)
 -- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: -
 --
 
@@ -22,8 +22,8 @@ CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 
 
 --
--- TOC entry 1997 (class 0 OID 0)
--- Dependencies: 173
+-- TOC entry 2009 (class 0 OID 0)
+-- Dependencies: 175
 -- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: -
 --
 
@@ -32,11 +32,39 @@ COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
 
 SET search_path = public, pg_catalog;
 
+SET default_tablespace = '';
+
 SET default_with_oids = false;
 
 --
+-- TOC entry 173 (class 1259 OID 16446)
+-- Name: cpd; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE cpd (
+    commit character varying(40) NOT NULL,
+    percentage double precision NOT NULL
+);
+
+
+--
+-- TOC entry 174 (class 1259 OID 16451)
+-- Name: cpd_entries; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE cpd_entries (
+    commit character varying(40) NOT NULL,
+    hash character varying(40) NOT NULL,
+    start integer,
+    content text,
+    id character varying(255) NOT NULL,
+    filename character varying(255) NOT NULL
+);
+
+
+--
 -- TOC entry 172 (class 1259 OID 16424)
--- Name: loc; Type: TABLE; Schema: public; Owner: -
+-- Name: loc; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE loc (
@@ -98,15 +126,33 @@ CREATE TABLE loc (
 
 
 --
--- TOC entry 1880 (class 2606 OID 16428)
--- Name: PK_loc; Type: CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 1891 (class 2606 OID 16450)
+-- Name: PK_cpd; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY cpd
+    ADD CONSTRAINT "PK_cpd" PRIMARY KEY (commit);
+
+
+--
+-- TOC entry 1893 (class 2606 OID 16469)
+-- Name: PK_cpd_entries; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY cpd_entries
+    ADD CONSTRAINT "PK_cpd_entries" PRIMARY KEY (commit, hash, filename);
+
+
+--
+-- TOC entry 1889 (class 2606 OID 16428)
+-- Name: PK_loc; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY loc
     ADD CONSTRAINT "PK_loc" PRIMARY KEY (commit);
 
 
--- Completed on 2015-12-05 16:28:56
+-- Completed on 2015-12-05 18:34:57
 
 --
 -- PostgreSQL database dump complete
